@@ -421,7 +421,7 @@ elif choice == "Visualisasi Data Mentah":
 elif choice == "Visualisasi Data Preprocessing":
     st.title("Visualisasi Data Preprocessing")
 
-    pre_path = "hasil_preprocessing.csv"
+    pre_path = "preprocessing_train.csv"
     try:
         df_pre = pd.read_csv(pre_path)
         df_pre["text_final"] = df_pre["text_final"].fillna("").astype(str)
