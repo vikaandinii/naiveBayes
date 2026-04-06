@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import os
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 import seaborn as sns
@@ -258,8 +259,12 @@ choice = st.sidebar.selectbox("Menu", menu)
 # ─────────────────────────────────────────
 # LOAD MODEL
 # ─────────────────────────────────────────
-model_path      = r"C:\ml\model_nb_pln.pkl"
-vectorizer_path = r"C:\ml\vectorizer_pln.pkl"
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+model_path = os.path.join(BASE_DIR, "model_nb_pln.pkl")
+vectorizer_path = os.path.join(BASE_DIR, "vectorizer_pln.pkl")
+
 
 with open(model_path, "rb") as f:
     nb = pickle.load(f)
@@ -317,7 +322,7 @@ if choice == "Prediksi Teks":
 elif choice == "Visualisasi Data Mentah":
     st.title("Visualisasi Data Mentah")
 
-    raw_path = r"C:\ml\ulasan_pln_mobile.csv"
+    raw_path = "ulasan_pln_mobile.csv"
     df_raw = pd.read_csv(raw_path)
 
     # Metric row
@@ -416,7 +421,7 @@ elif choice == "Visualisasi Data Mentah":
 elif choice == "Visualisasi Data Preprocessing":
     st.title("Visualisasi Data Preprocessing")
 
-    pre_path = r"C:\ml\hasil_preprocessing.csv"
+    pre_path = "hasil_preprocessing.csv"
     try:
         df_pre = pd.read_csv(pre_path)
         df_pre["text_final"] = df_pre["text_final"].fillna("").astype(str)
