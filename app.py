@@ -421,12 +421,13 @@ elif choice == "Visualisasi Data Mentah":
 elif choice == "Visualisasi Data Preprocessing":
     st.title("Visualisasi Data Preprocessing")
 
-    pre_path = "preprocessing_train.csv"
+    pre_path = "preprocessing_test.csv"
+
     try:
         df_pre = pd.read_csv(pre_path)
         df_pre["text_final"] = df_pre["text_final"].fillna("").astype(str)
 
-        # Metric row
+        # ── Metrics
         total = len(df_pre)
         n_pos = (df_pre["label"] == "positive").sum()
         n_neg = (df_pre["label"] == "negative").sum()
@@ -438,31 +439,36 @@ elif choice == "Visualisasi Data Preprocessing":
 
         st.markdown("---")
 
-        # Preview tabel
+        # ── Preview
         st.subheader("Preview Data Setelah Preprocessing")
         st.dataframe(df_pre.head(10), height=220, use_container_width=True)
 
         st.markdown("---")
 
-        # ── Chart: Distribusi label
+        # ── Distribusi Label
         st.subheader("Distribusi Label")
         fig4, ax4 = plt.subplots(figsize=(5, 3.5))
         style_ax(ax4, fig4)
+
         counts4 = df_pre["label"].value_counts()
         bar4 = ax4.bar(
-            counts4.index, counts4.values,
+            counts4.index,
+            counts4.values,
             color=[C_NAVY if l == "positive" else C_RED for l in counts4.index],
-            edgecolor="none", width=0.5
+            edgecolor="none",
+            width=0.5,
         )
+
         ax4.set_xlabel("Label", labelpad=8)
         ax4.set_ylabel("Jumlah", labelpad=8)
         ax4.set_title("Distribusi Label Preprocessing", fontsize=12, fontweight="500", pad=10)
         ax4.bar_label(bar4, fmt="%d", fontsize=10, color=C_MUTED, padding=4)
+
         st.pyplot(fig4)
 
         st.markdown("---")
 
-        # ── WordClouds
+        # ── WordCloud
         col_wc1, col_wc2 = st.columns(2)
 
         with col_wc1:
@@ -470,7 +476,8 @@ elif choice == "Visualisasi Data Preprocessing":
             if text_pos.strip():
                 st.subheader("WordCloud — Positif")
                 wc_pos = WordCloud(
-                    width=700, height=350,
+                    width=700,
+                    height=350,
                     background_color=C_SURFACE,
                     colormap="Blues",
                     max_words=80,
@@ -478,6 +485,7 @@ elif choice == "Visualisasi Data Preprocessing":
                     contour_color=C_NAVY,
                     contour_width=1,
                 ).generate(text_pos)
+
                 fig_wc1, ax_wc1 = plt.subplots(figsize=(6, 3))
                 fig_wc1.patch.set_facecolor(C_SURFACE)
                 ax_wc1.imshow(wc_pos, interpolation="bilinear")
@@ -489,7 +497,8 @@ elif choice == "Visualisasi Data Preprocessing":
             if text_neg.strip():
                 st.subheader("WordCloud — Negatif")
                 wc_neg = WordCloud(
-                    width=700, height=350,
+                    width=700,
+                    height=350,
                     background_color=C_SURFACE,
                     colormap="Reds",
                     max_words=80,
@@ -497,6 +506,7 @@ elif choice == "Visualisasi Data Preprocessing":
                     contour_color=C_RED,
                     contour_width=1,
                 ).generate(text_neg)
+
                 fig_wc2, ax_wc2 = plt.subplots(figsize=(6, 3))
                 fig_wc2.patch.set_facecolor(C_SURFACE)
                 ax_wc2.imshow(wc_neg, interpolation="bilinear")
@@ -505,13 +515,13 @@ elif choice == "Visualisasi Data Preprocessing":
 
         st.markdown("---")
 
-        # ── Confusion Matrix
-        st.subheader("Confusion Matrix (Sample 200 Data)")
-        sample_df = df_pre.sample(200, random_state=42)
-        y_true = sample_df["label"]
+        # ── Confusion Matrix (SEMUA DATA)
+        st.subheader("Confusion Matrix (Semua Data)")
+
+        y_true = df_pre["label"]
 
         with st.spinner("Menghitung prediksi model..."):
-            y_pred = [predict_text(t) for t in sample_df["text_final"]]
+            y_pred = [predict_text(t) for t in df_pre["text_final"]]
 
         cm = confusion_matrix(y_true, y_pred, labels=["positive", "negative"])
 
@@ -532,12 +542,21 @@ elif choice == "Visualisasi Data Preprocessing":
             annot_kws={"size": 16, "weight": "600", "color": C_TEXT},
             cbar=False,
         )
+
         ax_cm.set_xlabel("Prediksi", labelpad=10, color=C_MUTED, fontsize=12)
         ax_cm.set_ylabel("Aktual", labelpad=10, color=C_MUTED, fontsize=12)
-        ax_cm.set_title("Confusion Matrix", fontsize=13, fontweight="500",
-                         color=C_TEXT, pad=12)
+        ax_cm.set_title(
+            "Confusion Matrix",
+            fontsize=13,
+            fontweight="500",
+            color=C_TEXT,
+            pad=12,
+        )
         ax_cm.tick_params(colors=C_MUTED, labelsize=11)
+
         st.pyplot(fig_cm)
 
     except FileNotFoundError:
-        st.warning("File `hasil_preprocessing.csv` belum ditemukan. Jalankan preprocessing terlebih dahulu.")
+        st.warning("File `preprocessing_test.csv` belum ditemukan.")
+    except Exception as e:
+        st.error(f"Terjadi error: {e}")
