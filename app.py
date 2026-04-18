@@ -243,32 +243,35 @@ if choice == "Prediksi Teks":
             else:
                 st.error(f"❌  Prediksi sentimen: **NEGATIF**")
 
-            # ── Probability bar
-            st.markdown(f"""
-            <div class="prob-wrapper">
-                <div class="prob-title">Probabilitas Sentimen</div>
-
-                <div class="prob-row">
-                    <div class="prob-label-row">
-                        <span class="prob-label">✅ Positif</span>
-                        <span class="prob-pct" style="color:{C_NAVY};">{pct_pos:.1f}%</span>
-                    </div>
-                    <div class="prob-track">
-                        <div class="prob-fill" style="width:{pct_pos:.1f}%; background:{C_NAVY};"></div>
-                    </div>
-                </div>
-
-                <div class="prob-row">
-                    <div class="prob-label-row">
-                        <span class="prob-label">❌ Negatif</span>
-                        <span class="prob-pct" style="color:{C_RED};">{pct_neg:.1f}%</span>
-                    </div>
-                    <div class="prob-track">
-                        <div class="prob-fill" style="width:{pct_neg:.1f}%; background:{C_RED};"></div>
-                    </div>
-                </div>
-            </div>
-            """, unsafe_allow_html=True)
+            prob_html = (
+                '<div style="background:#fff;border:1px solid rgba(0,63,136,0.12);'
+                'border-radius:14px;padding:20px 24px;margin-top:16px;">'
+            
+                '<p style="font-size:12px;font-weight:600;color:#6b7a99;'
+                'text-transform:uppercase;letter-spacing:0.07em;margin-bottom:14px;">'
+                'Probabilitas Sentimen</p>'
+            
+                '<div style="margin-bottom:12px;">'
+                '<div style="display:flex;justify-content:space-between;margin-bottom:5px;">'
+                '<span style="font-size:13px;font-weight:600;color:#1a2340;">✅ Positif</span>'
+                f'<span style="font-size:13px;font-weight:700;color:{C_NAVY};">{pct_pos:.1f}%</span>'
+                '</div>'
+                '<div style="height:10px;background:#edf0f7;border-radius:99px;overflow:hidden;">'
+                f'<div style="height:100%;width:{pct_pos:.1f}%;background:{C_NAVY};border-radius:99px;"></div>'
+                '</div></div>'
+            
+                '<div style="margin-bottom:4px;">'
+                '<div style="display:flex;justify-content:space-between;margin-bottom:5px;">'
+                '<span style="font-size:13px;font-weight:600;color:#1a2340;">❌ Negatif</span>'
+                f'<span style="font-size:13px;font-weight:700;color:{C_RED};">{pct_neg:.1f}%</span>'
+                '</div>'
+                '<div style="height:10px;background:#edf0f7;border-radius:99px;overflow:hidden;">'
+                f'<div style="height:100%;width:{pct_neg:.1f}%;background:{C_RED};border-radius:99px;"></div>'
+                '</div></div>'
+            
+                '</div>'
+            )
+            st.markdown(prob_html, unsafe_allow_html=True)
 
 # ═════════════════════════════════════════
 # MENU 2 — VISUALISASI DATA MENTAH
