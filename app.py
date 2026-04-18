@@ -35,29 +35,16 @@ st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap');
 
-/* Global */
 html, body, [class*="css"], * {
     font-family: 'Plus Jakarta Sans', sans-serif !important;
 }
-
-[data-testid="stAppViewContainer"] {
-    background-color: #f4f6fb;
-}
-
-[data-testid="stHeader"] {
-    background: transparent;
-}
+[data-testid="stAppViewContainer"] { background-color: #f4f6fb; }
+[data-testid="stHeader"] { background: transparent; }
 
 /* ── Sidebar ── */
-[data-testid="stSidebar"] {
-    background-color: #003f88 !important;
-}
-[data-testid="stSidebar"] section {
-    padding-top: 1.5rem;
-}
-[data-testid="stSidebar"] * {
-    color: rgba(255,255,255,0.8) !important;
-}
+[data-testid="stSidebar"] { background-color: #003f88 !important; }
+[data-testid="stSidebar"] section { padding-top: 1.5rem; }
+[data-testid="stSidebar"] * { color: rgba(255,255,255,0.8) !important; }
 [data-testid="stSidebar"] .stSelectbox label,
 [data-testid="stSidebar"] .stRadio label {
     color: rgba(255,255,255,0.5) !important;
@@ -80,162 +67,97 @@ html, body, [class*="css"], * {
     background-color: #003f88 !important;
     border: 1px solid rgba(255,255,255,0.15) !important;
 }
-[data-testid="stSidebar"] [role="option"] {
-    color: rgba(255,255,255,0.8) !important;
-}
-[data-testid="stSidebar"] [role="option"]:hover {
-    background-color: rgba(255,255,255,0.1) !important;
-}
-[data-testid="stSidebarNav"] {
-    display: none;
-}
+[data-testid="stSidebar"] [role="option"] { color: rgba(255,255,255,0.8) !important; }
+[data-testid="stSidebar"] [role="option"]:hover { background-color: rgba(255,255,255,0.1) !important; }
+[data-testid="stSidebarNav"] { display: none; }
 
-/* ── Judul sidebar ── */
 .sidebar-brand {
-    display: flex;
-    align-items: center;
-    gap: 12px;
+    display: flex; align-items: center; gap: 12px;
     padding: 0 1rem 1.5rem;
     border-bottom: 1px solid rgba(255,255,255,0.12);
     margin-bottom: 1.5rem;
 }
 .sidebar-icon {
-    width: 40px; height: 40px;
-    background: #f5a623;
-    border-radius: 10px;
+    width: 40px; height: 40px; background: #f5a623; border-radius: 10px;
     display: flex; align-items: center; justify-content: center;
-    font-weight: 600; font-size: 13px; color: #1a1000;
-    flex-shrink: 0;
+    font-weight: 600; font-size: 13px; color: #1a1000; flex-shrink: 0;
 }
 .sidebar-label { line-height: 1.3; }
 .sidebar-title { font-size: 14px; font-weight: 600; color: #ffffff; }
 .sidebar-sub   { font-size: 11px; color: rgba(255,255,255,0.5); }
 
-/* ── Page title ── */
 h1 {
-    color: #003f88 !important;
-    font-size: 22px !important;
-    font-weight: 600 !important;
-    border-bottom: 3px solid #f5a623;
-    padding-bottom: 10px;
-    margin-bottom: 1.5rem !important;
+    color: #003f88 !important; font-size: 22px !important; font-weight: 600 !important;
+    border-bottom: 3px solid #f5a623; padding-bottom: 10px; margin-bottom: 1.5rem !important;
 }
-h2 {
-    color: #1a2340 !important;
-    font-size: 15px !important;
-    font-weight: 500 !important;
-    margin-top: 1.8rem !important;
-    margin-bottom: 0.75rem !important;
+h2 { color: #1a2340 !important; font-size: 15px !important; font-weight: 500 !important; margin-top: 1.8rem !important; margin-bottom: 0.75rem !important; }
+h3 { color: #6b7a99 !important; font-size: 12px !important; font-weight: 500 !important; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 0.5rem !important; }
+
+.stButton > button {
+    background-color: #003f88 !important; color: #ffffff !important; font-weight: 500 !important;
+    font-size: 14px !important; border: none !important; border-radius: 9px !important;
+    padding: 10px 24px !important; transition: background 0.15s ease !important;
 }
-h3 {
-    color: #6b7a99 !important;
-    font-size: 12px !important;
-    font-weight: 500 !important;
+.stButton > button:hover { background-color: #0066cc !important; color: #ffffff !important; }
+.stButton > button:active { background-color: #002d63 !important; }
+
+.stTextArea textarea {
+    background-color: #ffffff !important; border: 1px solid rgba(0,63,136,0.15) !important;
+    border-radius: 10px !important; font-size: 14px !important; color: #1a2340 !important; line-height: 1.6 !important;
+}
+.stTextArea textarea:focus { border-color: #0066cc !important; box-shadow: 0 0 0 3px rgba(0,102,204,0.1) !important; }
+.stTextArea label { color: #6b7a99 !important; font-size: 13px !important; font-weight: 500 !important; }
+
+.stSuccess { background-color: #eaf6ef !important; color: #1a7a44 !important; border-left: 4px solid #27ae60 !important; border-radius: 0 8px 8px 0 !important; }
+.stWarning { background-color: #fff8e6 !important; color: #7a5800 !important; border-left: 4px solid #f5a623 !important; border-radius: 0 8px 8px 0 !important; }
+.stError   { background-color: #fdecea !important; color: #a82828 !important; border-left: 4px solid #c0392b !important; border-radius: 0 8px 8px 0 !important; }
+.stInfo    { background-color: #eef3fc !important; color: #003f88 !important; border-left: 4px solid #003f88 !important; border-radius: 0 8px 8px 0 !important; }
+
+.stDataFrame { border: 1px solid rgba(0,63,136,0.1) !important; border-radius: 10px !important; overflow: hidden !important; }
+[data-testid="stDataFrameResizable"] { border-radius: 10px !important; }
+
+[data-testid="stMetric"] { background: #ffffff !important; border: 1px solid rgba(0,63,136,0.12) !important; border-radius: 12px !important; padding: 18px 20px !important; }
+[data-testid="stMetricLabel"] { color: #6b7a99 !important; font-size: 12px !important; font-weight: 500 !important; }
+[data-testid="stMetricValue"] { color: #1a2340 !important; font-size: 26px !important; font-weight: 600 !important; }
+
+.stSpinner > div { border-top-color: #003f88 !important; }
+hr { border-color: rgba(0,63,136,0.1) !important; }
+
+/* ── Probability bar custom ── */
+.prob-wrapper {
+    background: #ffffff;
+    border: 1px solid rgba(0,63,136,0.12);
+    border-radius: 14px;
+    padding: 20px 24px;
+    margin-top: 16px;
+}
+.prob-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: #6b7a99;
     text-transform: uppercase;
     letter-spacing: 0.07em;
-    margin-bottom: 0.5rem !important;
+    margin-bottom: 14px;
 }
-
-/* ── Buttons ── */
-.stButton > button {
-    background-color: #003f88 !important;
-    color: #ffffff !important;
-    font-weight: 500 !important;
-    font-size: 14px !important;
-    border: none !important;
-    border-radius: 9px !important;
-    padding: 10px 24px !important;
-    transition: background 0.15s ease !important;
+.prob-row { margin-bottom: 12px; }
+.prob-label-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
 }
-.stButton > button:hover {
-    background-color: #0066cc !important;
-    color: #ffffff !important;
+.prob-label { font-size: 13px; font-weight: 600; color: #1a2340; }
+.prob-pct   { font-size: 13px; font-weight: 700; }
+.prob-track {
+    height: 10px;
+    background: #edf0f7;
+    border-radius: 99px;
+    overflow: hidden;
 }
-.stButton > button:active {
-    background-color: #002d63 !important;
-}
-
-/* ── Text area ── */
-.stTextArea textarea {
-    background-color: #ffffff !important;
-    border: 1px solid rgba(0,63,136,0.15) !important;
-    border-radius: 10px !important;
-    font-size: 14px !important;
-    color: #1a2340 !important;
-    line-height: 1.6 !important;
-}
-.stTextArea textarea:focus {
-    border-color: #0066cc !important;
-    box-shadow: 0 0 0 3px rgba(0,102,204,0.1) !important;
-}
-.stTextArea label {
-    color: #6b7a99 !important;
-    font-size: 13px !important;
-    font-weight: 500 !important;
-}
-
-/* ── Alert boxes ── */
-.stSuccess {
-    background-color: #eaf6ef !important;
-    color: #1a7a44 !important;
-    border-left: 4px solid #27ae60 !important;
-    border-radius: 0 8px 8px 0 !important;
-}
-.stWarning {
-    background-color: #fff8e6 !important;
-    color: #7a5800 !important;
-    border-left: 4px solid #f5a623 !important;
-    border-radius: 0 8px 8px 0 !important;
-}
-.stError {
-    background-color: #fdecea !important;
-    color: #a82828 !important;
-    border-left: 4px solid #c0392b !important;
-    border-radius: 0 8px 8px 0 !important;
-}
-.stInfo {
-    background-color: #eef3fc !important;
-    color: #003f88 !important;
-    border-left: 4px solid #003f88 !important;
-    border-radius: 0 8px 8px 0 !important;
-}
-
-/* ── Dataframe ── */
-.stDataFrame {
-    border: 1px solid rgba(0,63,136,0.1) !important;
-    border-radius: 10px !important;
-    overflow: hidden !important;
-}
-[data-testid="stDataFrameResizable"] {
-    border-radius: 10px !important;
-}
-
-/* ── Metric cards ── */
-[data-testid="stMetric"] {
-    background: #ffffff !important;
-    border: 1px solid rgba(0,63,136,0.12) !important;
-    border-radius: 12px !important;
-    padding: 18px 20px !important;
-}
-[data-testid="stMetricLabel"] {
-    color: #6b7a99 !important;
-    font-size: 12px !important;
-    font-weight: 500 !important;
-}
-[data-testid="stMetricValue"] {
-    color: #1a2340 !important;
-    font-size: 26px !important;
-    font-weight: 600 !important;
-}
-
-/* ── Spinner ── */
-.stSpinner > div {
-    border-top-color: #003f88 !important;
-}
-
-/* ── Divider ── */
-hr {
-    border-color: rgba(0,63,136,0.1) !important;
+.prob-fill {
+    height: 100%;
+    border-radius: 99px;
+    transition: width 0.4s ease;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -259,12 +181,10 @@ choice = st.sidebar.selectbox("Menu", menu)
 # ─────────────────────────────────────────
 # LOAD MODEL
 # ─────────────────────────────────────────
-
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-model_path = os.path.join(BASE_DIR, "model_nb_pln.pkl")
+model_path      = os.path.join(BASE_DIR, "model_nb_pln.pkl")
 vectorizer_path = os.path.join(BASE_DIR, "vectorizer_pln.pkl")
-
 
 with open(model_path, "rb") as f:
     nb = pickle.load(f)
@@ -313,19 +233,21 @@ if choice == "Prediksi Teks":
         else:
             with st.spinner("Menganalisis teks..."):
                 hasil, prob = predict_text(user_input)
-            
+
             pct_pos = prob.get("positive", 0) * 100
             pct_neg = prob.get("negative", 0) * 100
-            
+
+            # ── Hasil prediksi
             if hasil == "positive":
                 st.success(f"✅  Prediksi sentimen: **POSITIF**")
             else:
                 st.error(f"❌  Prediksi sentimen: **NEGATIF**")
-            
+
+            # ── Probability bar
             st.markdown(f"""
             <div class="prob-wrapper">
                 <div class="prob-title">Probabilitas Sentimen</div>
-            
+
                 <div class="prob-row">
                     <div class="prob-label-row">
                         <span class="prob-label">✅ Positif</span>
@@ -335,7 +257,7 @@ if choice == "Prediksi Teks":
                         <div class="prob-fill" style="width:{pct_pos:.1f}%; background:{C_NAVY};"></div>
                     </div>
                 </div>
-            
+
                 <div class="prob-row">
                     <div class="prob-label-row">
                         <span class="prob-label">❌ Negatif</span>
@@ -357,7 +279,6 @@ elif choice == "Visualisasi Data Mentah":
     raw_path = "ulasan_pln_mobile.csv"
     df_raw = pd.read_csv(raw_path)
 
-    # Metric row
     col1, col2, col3 = st.columns(3)
     col1.metric("Total Ulasan", f"{len(df_raw):,}")
     col2.metric("Rata-rata Rating", f"{df_raw['score'].mean():.2f} ★")
@@ -365,13 +286,11 @@ elif choice == "Visualisasi Data Mentah":
 
     st.markdown("---")
 
-    # Preview tabel
     st.subheader("Preview Data")
     st.dataframe(df_raw.head(10), height=220, use_container_width=True)
 
     st.markdown("---")
 
-    # ── Chart 1: Distribusi rating awal
     st.subheader("Distribusi Rating Awal")
     fig, ax = plt.subplots(figsize=(7, 4))
     style_ax(ax, fig)
@@ -391,13 +310,11 @@ elif choice == "Visualisasi Data Mentah":
         mpatches.Patch(color="#a3bef7", label="Netral (★3–4)"),
         mpatches.Patch(color=C_NAVY,   label="Positif (★5)"),
     ]
-    ax.legend(handles=legend_patches, fontsize=10, frameon=False,
-              labelcolor=C_MUTED)
+    ax.legend(handles=legend_patches, fontsize=10, frameon=False, labelcolor=C_MUTED)
     st.pyplot(fig)
 
     st.markdown("---")
 
-    # Label filtering & balancing
     df_raw["label"] = df_raw["score"].apply(
         lambda x: "positive" if x == 5 else ("negative" if x <= 2 else None)
     )
@@ -405,7 +322,6 @@ elif choice == "Visualisasi Data Mentah":
 
     col_a, col_b = st.columns(2)
 
-    # ── Chart 2: Setelah filter
     with col_a:
         st.subheader("Setelah Filter Rating")
         fig2, ax2 = plt.subplots(figsize=(5, 4))
@@ -422,7 +338,6 @@ elif choice == "Visualisasi Data Mentah":
         ax2.bar_label(bar2, fmt="%d", fontsize=10, color=C_MUTED, padding=4)
         st.pyplot(fig2)
 
-    # ── Chart 3: Setelah balancing
     df_pos = df_filtered[df_filtered["label"] == "positive"]
     df_neg = df_filtered[df_filtered["label"] == "negative"]
     n = min(len(df_pos), len(df_neg))
@@ -459,7 +374,6 @@ elif choice == "Visualisasi Data Preprocessing":
         df_pre = pd.read_csv(pre_path)
         df_pre["text_final"] = df_pre["text_final"].fillna("").astype(str)
 
-        # ── Metrics
         total = len(df_pre)
         n_pos = (df_pre["label"] == "positive").sum()
         n_neg = (df_pre["label"] == "negative").sum()
@@ -471,36 +385,29 @@ elif choice == "Visualisasi Data Preprocessing":
 
         st.markdown("---")
 
-        # ── Preview
         st.subheader("Preview Data Setelah Preprocessing")
         st.dataframe(df_pre.head(10), height=220, use_container_width=True)
 
         st.markdown("---")
 
-        # ── Distribusi Label
         st.subheader("Distribusi Label")
         fig4, ax4 = plt.subplots(figsize=(5, 3.5))
         style_ax(ax4, fig4)
 
         counts4 = df_pre["label"].value_counts()
         bar4 = ax4.bar(
-            counts4.index,
-            counts4.values,
+            counts4.index, counts4.values,
             color=[C_NAVY if l == "positive" else C_RED for l in counts4.index],
-            edgecolor="none",
-            width=0.5,
+            edgecolor="none", width=0.5,
         )
-
         ax4.set_xlabel("Label", labelpad=8)
         ax4.set_ylabel("Jumlah", labelpad=8)
         ax4.set_title("Distribusi Label Preprocessing", fontsize=12, fontweight="500", pad=10)
         ax4.bar_label(bar4, fmt="%d", fontsize=10, color=C_MUTED, padding=4)
-
         st.pyplot(fig4)
 
         st.markdown("---")
 
-        # ── WordCloud
         col_wc1, col_wc2 = st.columns(2)
 
         with col_wc1:
@@ -508,16 +415,10 @@ elif choice == "Visualisasi Data Preprocessing":
             if text_pos.strip():
                 st.subheader("WordCloud — Positif")
                 wc_pos = WordCloud(
-                    width=700,
-                    height=350,
-                    background_color=C_SURFACE,
-                    colormap="Blues",
-                    max_words=80,
-                    prefer_horizontal=0.9,
-                    contour_color=C_NAVY,
-                    contour_width=1,
+                    width=700, height=350, background_color=C_SURFACE,
+                    colormap="Blues", max_words=80, prefer_horizontal=0.9,
+                    contour_color=C_NAVY, contour_width=1,
                 ).generate(text_pos)
-
                 fig_wc1, ax_wc1 = plt.subplots(figsize=(6, 3))
                 fig_wc1.patch.set_facecolor(C_SURFACE)
                 ax_wc1.imshow(wc_pos, interpolation="bilinear")
@@ -529,16 +430,10 @@ elif choice == "Visualisasi Data Preprocessing":
             if text_neg.strip():
                 st.subheader("WordCloud — Negatif")
                 wc_neg = WordCloud(
-                    width=700,
-                    height=350,
-                    background_color=C_SURFACE,
-                    colormap="Reds",
-                    max_words=80,
-                    prefer_horizontal=0.9,
-                    contour_color=C_RED,
-                    contour_width=1,
+                    width=700, height=350, background_color=C_SURFACE,
+                    colormap="Reds", max_words=80, prefer_horizontal=0.9,
+                    contour_color=C_RED, contour_width=1,
                 ).generate(text_neg)
-
                 fig_wc2, ax_wc2 = plt.subplots(figsize=(6, 3))
                 fig_wc2.patch.set_facecolor(C_SURFACE)
                 ax_wc2.imshow(wc_neg, interpolation="bilinear")
@@ -547,9 +442,7 @@ elif choice == "Visualisasi Data Preprocessing":
 
         st.markdown("---")
 
-        # ── Confusion Matrix (SEMUA DATA)
         st.subheader("Confusion Matrix (Semua Data)")
-
         y_true = df_pre["label"]
 
         with st.spinner("Menghitung prediksi model..."):
@@ -562,30 +455,17 @@ elif choice == "Visualisasi Data Preprocessing":
         ax_cm.set_facecolor(C_BG)
 
         sns.heatmap(
-            cm,
-            annot=True,
-            fmt="d",
-            cmap="Blues",
+            cm, annot=True, fmt="d", cmap="Blues",
             xticklabels=["Positif", "Negatif"],
             yticklabels=["Positif", "Negatif"],
-            ax=ax_cm,
-            linewidths=2,
-            linecolor=C_BG,
+            ax=ax_cm, linewidths=2, linecolor=C_BG,
             annot_kws={"size": 16, "weight": "600", "color": C_TEXT},
             cbar=False,
         )
-
         ax_cm.set_xlabel("Prediksi", labelpad=10, color=C_MUTED, fontsize=12)
         ax_cm.set_ylabel("Aktual", labelpad=10, color=C_MUTED, fontsize=12)
-        ax_cm.set_title(
-            "Confusion Matrix",
-            fontsize=13,
-            fontweight="500",
-            color=C_TEXT,
-            pad=12,
-        )
+        ax_cm.set_title("Confusion Matrix", fontsize=13, fontweight="500", color=C_TEXT, pad=12)
         ax_cm.tick_params(colors=C_MUTED, labelsize=11)
-
         st.pyplot(fig_cm)
 
     except FileNotFoundError:
