@@ -15,9 +15,6 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# ─────────────────────────────────────────
-# PALET WARNA — konsisten di seluruh app
-# ─────────────────────────────────────────
 C_NAVY    = "#003f88"
 C_BLUE    = "#0066cc"
 C_ACCENT  = "#f5a623"
@@ -28,9 +25,6 @@ C_MUTED   = "#6b7a99"
 C_TEXT    = "#1a2340"
 C_GREEN   = "#27ae60"
 
-# ─────────────────────────────────────────
-# CSS
-# ─────────────────────────────────────────
 st.markdown("""
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap');
@@ -41,7 +35,6 @@ html, body, [class*="css"], * {
 [data-testid="stAppViewContainer"] { background-color: #f4f6fb; }
 [data-testid="stHeader"] { background: transparent; }
 
-/* ── Sidebar ── */
 [data-testid="stSidebar"] { background-color: #003f88 !important; }
 [data-testid="stSidebar"] section { padding-top: 1.5rem; }
 [data-testid="stSidebar"] * { color: rgba(255,255,255,0.8) !important; }
@@ -122,48 +115,11 @@ h3 { color: #6b7a99 !important; font-size: 12px !important; font-weight: 500 !im
 
 .stSpinner > div { border-top-color: #003f88 !important; }
 hr { border-color: rgba(0,63,136,0.1) !important; }
-
-/* ── Probability bar custom ── */
-.prob-wrapper {
-    background: #ffffff;
-    border: 1px solid rgba(0,63,136,0.12);
-    border-radius: 14px;
-    padding: 20px 24px;
-    margin-top: 16px;
-}
-.prob-title {
-    font-size: 12px;
-    font-weight: 600;
-    color: #6b7a99;
-    text-transform: uppercase;
-    letter-spacing: 0.07em;
-    margin-bottom: 14px;
-}
-.prob-row { margin-bottom: 12px; }
-.prob-label-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 5px;
-}
-.prob-label { font-size: 13px; font-weight: 600; color: #1a2340; }
-.prob-pct   { font-size: 13px; font-weight: 700; }
-.prob-track {
-    height: 10px;
-    background: #edf0f7;
-    border-radius: 99px;
-    overflow: hidden;
-}
-.prob-fill {
-    height: 100%;
-    border-radius: 99px;
-    transition: width 0.4s ease;
-}
 </style>
 """, unsafe_allow_html=True)
 
 # ─────────────────────────────────────────
-# SIDEBAR BRAND
+# SIDEBAR
 # ─────────────────────────────────────────
 st.sidebar.markdown("""
 <div class="sidebar-brand">
@@ -182,7 +138,6 @@ choice = st.sidebar.selectbox("Menu", menu)
 # LOAD MODEL
 # ─────────────────────────────────────────
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
 model_path      = os.path.join(BASE_DIR, "model_nb_pln.pkl")
 vectorizer_path = os.path.join(BASE_DIR, "vectorizer_pln.pkl")
 
@@ -193,14 +148,14 @@ with open(vectorizer_path, "rb") as f:
 
 def predict_text(text):
     text_proc = preprocess(text)
-    vec  = vectorizer.transform([text_proc])
-    pred = nb.predict(vec)[0]
-    prob = nb.predict_proba(vec)[0]
+    vec       = vectorizer.transform([text_proc])
+    pred      = nb.predict(vec)[0]
+    prob      = nb.predict_proba(vec)[0]
     prob_dict = dict(zip(nb.classes_, prob))
     return pred, prob_dict
 
 # ─────────────────────────────────────────
-# HELPER: setup axes style
+# HELPER
 # ─────────────────────────────────────────
 def style_ax(ax, fig):
     fig.patch.set_facecolor(C_BG)
@@ -237,38 +192,40 @@ if choice == "Prediksi Teks":
             pct_pos = prob.get("positive", 0) * 100
             pct_neg = prob.get("negative", 0) * 100
 
-            # ── Hasil prediksi
             if hasil == "positive":
-                st.success(f"✅  Prediksi sentimen: **POSITIF**")
+                st.success("✅  Prediksi sentimen: **POSITIF**")
             else:
-                st.error(f"❌  Prediksi sentimen: **NEGATIF**")
+                st.error("❌  Prediksi sentimen: **NEGATIF**")
 
+            # Probability bar — pakai inline style agar tidak bergantung pada CSS class
             prob_html = (
-                '<div style="background:#fff;border:1px solid rgba(0,63,136,0.12);'
+                '<div style="background:#ffffff;border:1px solid rgba(0,63,136,0.12);'
                 'border-radius:14px;padding:20px 24px;margin-top:16px;">'
-            
+
                 '<p style="font-size:12px;font-weight:600;color:#6b7a99;'
                 'text-transform:uppercase;letter-spacing:0.07em;margin-bottom:14px;">'
                 'Probabilitas Sentimen</p>'
-            
-                '<div style="margin-bottom:12px;">'
-                '<div style="display:flex;justify-content:space-between;margin-bottom:5px;">'
+
+                '<div style="margin-bottom:14px;">'
+                '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">'
                 '<span style="font-size:13px;font-weight:600;color:#1a2340;">✅ Positif</span>'
                 f'<span style="font-size:13px;font-weight:700;color:{C_NAVY};">{pct_pos:.1f}%</span>'
                 '</div>'
                 '<div style="height:10px;background:#edf0f7;border-radius:99px;overflow:hidden;">'
                 f'<div style="height:100%;width:{pct_pos:.1f}%;background:{C_NAVY};border-radius:99px;"></div>'
-                '</div></div>'
-            
+                '</div>'
+                '</div>'
+
                 '<div style="margin-bottom:4px;">'
-                '<div style="display:flex;justify-content:space-between;margin-bottom:5px;">'
+                '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">'
                 '<span style="font-size:13px;font-weight:600;color:#1a2340;">❌ Negatif</span>'
                 f'<span style="font-size:13px;font-weight:700;color:{C_RED};">{pct_neg:.1f}%</span>'
                 '</div>'
                 '<div style="height:10px;background:#edf0f7;border-radius:99px;overflow:hidden;">'
                 f'<div style="height:100%;width:{pct_neg:.1f}%;background:{C_RED};border-radius:99px;"></div>'
-                '</div></div>'
-            
+                '</div>'
+                '</div>'
+
                 '</div>'
             )
             st.markdown(prob_html, unsafe_allow_html=True)
@@ -309,9 +266,9 @@ elif choice == "Visualisasi Data Mentah":
     ax.bar_label(bars, fmt="%d", fontsize=10, color=C_MUTED, padding=4)
 
     legend_patches = [
-        mpatches.Patch(color=C_RED,    label="Negatif (★1–2)"),
+        mpatches.Patch(color=C_RED,     label="Negatif (★1–2)"),
         mpatches.Patch(color="#a3bef7", label="Netral (★3–4)"),
-        mpatches.Patch(color=C_NAVY,   label="Positif (★5)"),
+        mpatches.Patch(color=C_NAVY,    label="Positif (★5)"),
     ]
     ax.legend(handles=legend_patches, fontsize=10, frameon=False, labelcolor=C_MUTED)
     st.pyplot(fig)
