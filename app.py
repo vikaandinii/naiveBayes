@@ -273,8 +273,11 @@ with open(vectorizer_path, "rb") as f:
 
 def predict_text(text):
     text_proc = preprocess(text)
-    vec = vectorizer.transform([text_proc])
-    return nb.predict(vec)[0]
+    vec  = vectorizer.transform([text_proc])
+    pred = nb.predict(vec)[0]
+    prob = nb.predict_proba(vec)[0]
+    prob_dict = dict(zip(nb.classes_, prob))
+    return pred, prob_dict
 
 # ─────────────────────────────────────────
 # HELPER: setup axes style
@@ -309,12 +312,41 @@ if choice == "Prediksi Teks":
             st.warning("Teks tidak boleh kosong.")
         else:
             with st.spinner("Menganalisis teks..."):
-                hasil = predict_text(user_input)
-
+                hasil, prob = predict_text(user_input)
+            
+            pct_pos = prob.get("positive", 0) * 100
+            pct_neg = prob.get("negative", 0) * 100
+            
             if hasil == "positive":
                 st.success(f"✅  Prediksi sentimen: **POSITIF**")
             else:
                 st.error(f"❌  Prediksi sentimen: **NEGATIF**")
+            
+            st.markdown(f"""
+            <div class="prob-wrapper">
+                <div class="prob-title">Probabilitas Sentimen</div>
+            
+                <div class="prob-row">
+                    <div class="prob-label-row">
+                        <span class="prob-label">✅ Positif</span>
+                        <span class="prob-pct" style="color:{C_NAVY};">{pct_pos:.1f}%</span>
+                    </div>
+                    <div class="prob-track">
+                        <div class="prob-fill" style="width:{pct_pos:.1f}%; background:{C_NAVY};"></div>
+                    </div>
+                </div>
+            
+                <div class="prob-row">
+                    <div class="prob-label-row">
+                        <span class="prob-label">❌ Negatif</span>
+                        <span class="prob-pct" style="color:{C_RED};">{pct_neg:.1f}%</span>
+                    </div>
+                    <div class="prob-track">
+                        <div class="prob-fill" style="width:{pct_neg:.1f}%; background:{C_RED};"></div>
+                    </div>
+                </div>
+            </div>
+            """, unsafe_allow_html=True)
 
 # ═════════════════════════════════════════
 # MENU 2 — VISUALISASI DATA MENTAH
@@ -521,7 +553,7 @@ elif choice == "Visualisasi Data Preprocessing":
         y_true = df_pre["label"]
 
         with st.spinner("Menghitung prediksi model..."):
-            y_pred = [predict_text(t) for t in df_pre["text_final"]]
+            y_pred = [predict_text(t)[0] for t in df_pre["text_final"]]
 
         cm = confusion_matrix(y_true, y_pred, labels=["positive", "negative"])
 
